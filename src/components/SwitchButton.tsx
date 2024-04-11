@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 
 import styled, { css } from 'styled-components';
+
+import { ThemeContext } from '../context/ThemeProvider';
 
 import { FiSun, FiMoon } from 'react-icons/fi';
 
 type SwitchProps = {
-  toggle: boolean;
+  active: string;
 };
 
 const Switch = styled.button<SwitchProps>`
@@ -38,6 +40,8 @@ const Switch = styled.button<SwitchProps>`
     background-color: ${(props) => props.theme.colors.baseWhite};
     border-radius: 100%;
     transition: opacity;
+    font-size: 0;
+    text-indent: -99999px;
 
     &:first-of-type {
       opacity: 0;
@@ -54,7 +58,7 @@ const Switch = styled.button<SwitchProps>`
   }
 
   ${(props) =>
-    props.toggle &&
+    props.active === 'light' &&
     css`
       span {
         &:first-of-type {
@@ -68,18 +72,14 @@ const Switch = styled.button<SwitchProps>`
 `;
 
 function SwitchButton() {
-  const [toggle, seToggle] = useState(true);
-
-  const handleSwitchClick = () => {
-    seToggle(!toggle);
-  };
+  const { theme, onChangeTheme } = useContext(ThemeContext);
   return (
-    <Switch type="button" toggle={toggle} onClick={handleSwitchClick}>
+    <Switch type="button" active={theme} onClick={onChangeTheme}>
       <span>
-        <FiSun />
+        <FiSun /> Light Mode
       </span>
       <span>
-        <FiMoon />
+        <FiMoon /> Dark Mode
       </span>
     </Switch>
   );

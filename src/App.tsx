@@ -1,16 +1,14 @@
-import { ThemeProvider } from 'styled-components';
-
 import { Reset } from 'styled-reset';
 
 import GlobalStyle from './styles/GlobalStyle';
-import defaultTheme from './styles/defaultTheme';
 
 import Layout from './components/Layout';
 
+import ThemeProvider from './context/ThemeProvider';
+
 function App() {
-  const theme = defaultTheme;
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <Reset />
       <GlobalStyle />
       <Layout />
