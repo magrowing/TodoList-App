@@ -22,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.6rem;
     font-family: "Pretendard Variable", Pretendard,  sans-serif;
     color: ${(props) => props.theme.colors.baseBlack};
+    background-color: ${(props) => props.theme.colors.bgPrimary};
   }
 
   :lang(ko) {

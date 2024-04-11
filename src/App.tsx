@@ -1,8 +1,11 @@
+import { ThemeProvider } from 'styled-components';
+
 import { Reset } from 'styled-reset';
 
 import GlobalStyle from './styles/GlobalStyle';
-import { ThemeProvider } from 'styled-components';
 import defaultTheme from './styles/defaultTheme';
+
+import Layout from './components/Layout';
 
 function App() {
   const theme = defaultTheme;
@@ -10,6 +13,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Reset />
       <GlobalStyle />
+      <Layout />
     </ThemeProvider>
   );
 }
