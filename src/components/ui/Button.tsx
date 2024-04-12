@@ -28,3 +28,16 @@ const Button = styled.button.attrs<ButtonProps>((props) => {
 `;
 
 export default Button;
+
+export const IconButton = styled(Button)`
+  min-width: 4rem;
+  width: 4rem;
+  height: 4rem;
+  margin-left: 1rem;
+  background-color: ${(props) => props.theme.colors.grayPrimary};
+  svg {
+    width: 2rem;
+    height: 2rem;
+    stroke: ${(props) => props.theme.colors.textPrimary};
+  }
+`;
