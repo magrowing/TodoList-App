@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import Header from './Header';
+import Editor from './Editor';
 
 const Container = styled.article`
   width: 90%;
@@ -13,6 +14,7 @@ function Layout() {
   return (
     <Container>
       <Header />
+      <Editor />
     </Container>
   );
 }
