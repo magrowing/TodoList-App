@@ -3,15 +3,13 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import Button from './ui/Button';
-
 import ComboBox from './ui/ComboBox';
+
 import ModalEditor from './ModalEditor';
 
 const Container = styled.section`
   display: flex;
   align-items: center;
-  max-width: 80rem;
-  margin: 0 auto;
   .lookup-area {
     margin-left: auto;
   }

@@ -30,6 +30,9 @@ const Button = styled.button.attrs<ButtonProps>((props) => {
 export default Button;
 
 export const IconButton = styled(Button)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 4rem;
   width: 4rem;
   height: 4rem;

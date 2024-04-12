@@ -6,7 +6,7 @@ import List from './List';
 
 const Container = styled.article`
   width: 90%;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   height: 400px;
 `;

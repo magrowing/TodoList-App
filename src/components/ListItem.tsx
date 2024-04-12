@@ -4,9 +4,7 @@ import { IconButton } from './ui/Button';
 
 import dateTimeFormat from '../utils/dateTimeFormat';
 
-import { FiTrash2 } from 'react-icons/fi';
-import { FiEdit3 } from 'react-icons/fi';
-import { FiCheck } from 'react-icons/fi';
+import { FiTrash2, FiEdit3, FiCheck } from 'react-icons/fi';
 
 const Item = styled.li`
   display: flex;
@@ -14,6 +12,11 @@ const Item = styled.li`
   padding: 1rem;
   border-radius: 0.6rem;
   background-color: ${(props) => props.theme.colors.bgPrimary};
+  margin-bottom: 1rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 
   .checkBox {
     position: relative;

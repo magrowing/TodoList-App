@@ -18,7 +18,7 @@ const Switch = styled.button<SwitchProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 9rem;
+  width: 7rem;
   height: auto;
   padding: 0.6rem 1rem;
   border: none;
@@ -35,8 +35,8 @@ const Switch = styled.button<SwitchProps>`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 3rem;
-    height: 3rem;
+    width: 2.6rem;
+    height: 2.6rem;
     background-color: ${(props) => props.theme.colors.baseWhite};
     border-radius: 100%;
     transition: opacity;
