@@ -1,6 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useRef, useState } from 'react';
+
 import styled from 'styled-components';
 
 import Button from './ui/Button';
+
+import { useTodoStore } from '../store/useTodoStore';
 
 const ModalContainer = styled.article`
   position: fixed;
@@ -70,25 +76,63 @@ type ModalEditorProps = {
 };
 
 function ModalEditor({ handleModalClose }: ModalEditorProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const onCreate = useTodoStore((state) => state.onCreate);
+  const [todo, setTodo] = useState({
+    title: '',
+    stats: 'incomplete',
+  });
+
+  const handleOnChange = (e: React.ChangeEvent<any>) => {
+    const { value } = e.target;
+    setTodo({ ...todo, [e.target.id]: value });
+  };
+
+  const handleOnSubmit = () => {
+    if (!todo.title) {
+      inputRef.current?.focus();
+      return;
+    }
+    const newItem = {
+      id: crypto.randomUUID(),
+      ...todo,
+      date: new Date().getTime(),
+    };
+    onCreate(newItem);
+    handleModalClose();
+  };
+
   return (
     <ModalContainer>
       <div className="container">
         <h3 className="title">Add TODO</h3>
         <div className="form">
           <label htmlFor="title">title</label>
-          <input type="text" id="title" placeholder="Add Todo..." />
+          <input
+            ref={inputRef}
+            type="text"
+            id="title"
+            placeholder="Add Todo..."
+            value={todo.title}
+            onChange={handleOnChange}
+          />
         </div>
         <div className="form">
-          <label htmlFor="stats" className="form__Title">
-            stats
-          </label>
-          <select name="stats" id="stats">
+          <label htmlFor="stats">stats</label>
+          <select
+            name="stats"
+            id="stats"
+            value={todo.stats}
+            onChange={handleOnChange}
+          >
             <option value="incomplete">Incomplete</option>
             <option value="completed">Completed</option>
           </select>
         </div>
         <div className="btn">
-          <Button className="primary">Add Task</Button>
+          <Button className="primary" onClick={handleOnSubmit}>
+            Add Task
+          </Button>
           <Button onClick={handleModalClose}>Cancel</Button>
         </div>
       </div>

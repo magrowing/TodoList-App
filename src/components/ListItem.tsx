@@ -4,6 +4,8 @@ import { IconButton } from './ui/Button';
 
 import dateTimeFormat from '../utils/dateTimeFormat';
 
+import { TodoItemType } from '../types';
+
 import { FiTrash2, FiEdit3, FiCheck } from 'react-icons/fi';
 
 const Item = styled.li`
@@ -25,6 +27,12 @@ const Item = styled.li`
       position: absolute;
       width: 0;
       height: 0;
+      &:checked + label {
+        background-color: ${(props) => props.theme.colors.primary};
+        svg {
+          opacity: 1;
+        }
+      }
     }
     label {
       display: inline-flex;
@@ -36,6 +44,7 @@ const Item = styled.li`
       border-radius: 0.6rem;
 
       svg {
+        opacity: 0;
         width: 2.6rem;
         height: 2.6rem;
         stroke: ${(props) => props.theme.colors.baseWhite};
@@ -62,18 +71,27 @@ const Item = styled.li`
   }
 `;
 
-function ListItem() {
+type ListItemProps = {
+  todoItem: TodoItemType;
+};
+
+function ListItem({ todoItem }: ListItemProps) {
+  const { title, stats, date } = todoItem;
   return (
     <Item>
       <div className="checkBox">
-        <input type="checkbox" id={`checkbox`} />
+        <input
+          type="checkbox"
+          id={`checkbox`}
+          checked={!(stats === 'incomplete')}
+        />
         <label htmlFor={`checkbox`}>
           <FiCheck />
         </label>
       </div>
       <dl>
-        <dt>List</dt>
-        <dd>{dateTimeFormat(1324938920)}</dd>
+        <dt>{title}</dt>
+        <dd>{dateTimeFormat(date)}</dd>
       </dl>
       <div>
         <IconButton>

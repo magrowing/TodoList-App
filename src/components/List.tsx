@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 import ListItem from './ListItem';
 
+import { useTodoStore } from '../store/useTodoStore';
+
 const LisContainer = styled.ul`
   padding: 1.5rem;
   border-radius: 1.2rem;
@@ -10,9 +12,22 @@ const LisContainer = styled.ul`
 `;
 
 function List() {
+  const todoItems = useTodoStore((state) => state.todoItems);
+
+  if (!todoItems.length) {
+    return (
+      <LisContainer>
+        <li>할일을 추가해주세요.</li>
+      </LisContainer>
+    );
+  }
+
   return (
     <LisContainer>
-      <ListItem />
+      {todoItems.map((item) => {
+        const key = `key-${item.id}`;
+        return <ListItem key={key} todoItem={item} />;
+      })}
     </LisContainer>
   );
 }
