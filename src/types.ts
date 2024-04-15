@@ -16,6 +16,7 @@ export interface TodoState {
   onUpdate : (targetId : string, todo : {title : string, stats : string }) => void;
   onUpdateTargetId : (targetId : string) => void;
   onDone : (targetId : string, stats :string) => void;
+  onFilterChange : (target : string) => void; 
 }
 
 export interface ModalState {

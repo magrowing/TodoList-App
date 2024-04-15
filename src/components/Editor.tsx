@@ -20,6 +20,7 @@ function Editor() {
   const isOpenModal = useModelStore((state) => state.isOpenModal);
   const onToggle = useModelStore((state) => state.onToggle);
   const onUpdateTargetId = useTodoStore((state) => state.onUpdateTargetId);
+  const onFilterChange = useTodoStore((state) => state.onFilterChange);
 
   const handleModalOpen = () => {
     onToggle(isOpenModal);
@@ -31,13 +32,18 @@ function Editor() {
     onUpdateTargetId('');
   };
 
+  const handleTodoFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    onFilterChange(value);
+  };
+
   return (
     <Container>
       <Button className="primary" onClick={handleModalOpen}>
         Add Task
       </Button>
       <div className="lookup-area">
-        <ComboBox name="" id="">
+        <ComboBox id="select_box" onChange={handleTodoFilterChange}>
           <option value="all">ALL</option>
           <option value="incomplete">Incomplete</option>
           <option value="completed">Completed</option>

@@ -38,4 +38,8 @@ export const useTodoStore = create<TodoState>()((set) => ({
     ? { ...item , stats : stats === 'incomplete' ? 'completed' : 'incomplete' } 
     : item ),
   })),
+
+  onFilterChange : (target) => set((state) => ({
+    todoItems : state.todoItems.filter((item) => item.stats === target)
+  }) )
 }))
