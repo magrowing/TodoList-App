@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useState } from 'react';
 
 import styled from 'styled-components';
@@ -83,7 +81,9 @@ function ModalEditor({ handleModalClose }: ModalEditorProps) {
     stats: 'incomplete',
   });
 
-  const handleOnChange = (e: React.ChangeEvent<any>) => {
+  const handleOnChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { value } = e.target;
     setTodo({ ...todo, [e.target.id]: value });
   };
@@ -93,12 +93,7 @@ function ModalEditor({ handleModalClose }: ModalEditorProps) {
       inputRef.current?.focus();
       return;
     }
-    const newItem = {
-      id: crypto.randomUUID(),
-      ...todo,
-      date: new Date().getTime(),
-    };
-    onCreate(newItem);
+    onCreate(todo);
     handleModalClose();
   };
 

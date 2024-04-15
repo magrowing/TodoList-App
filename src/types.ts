@@ -8,6 +8,6 @@ export type TodoItemType = {
 
 export interface TodoState {
   todoItems: TodoItemType[];
-  onCreate : (newItem : TodoItemType) => void;
+  onCreate : (item : {title : string, stats : string }) => void;
   onDelete : (targetId : string) => void;
 }

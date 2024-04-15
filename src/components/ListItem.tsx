@@ -84,6 +84,7 @@ function ListItem({ todoItem }: ListItemProps) {
           type="checkbox"
           id={`checkbox`}
           checked={!(stats === 'incomplete')}
+          readOnly
         />
         <label htmlFor={`checkbox`}>
           <FiCheck />
