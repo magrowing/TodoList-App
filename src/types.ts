@@ -7,7 +7,6 @@ export type TodoItemType = {
 
 
 export interface TodoState {
-  isUpdateChk : boolean; 
   title: string,
   stats: string,
   isTargetId : string,
@@ -16,6 +15,7 @@ export interface TodoState {
   onDelete : (targetId : string) => void;
   onUpdate : (targetId : string, todo : {title : string, stats : string }) => void;
   onUpdateTargetId : (targetId : string) => void;
+  onDone : (targetId : string, stats :string) => void;
 }
 
 export interface ModalState {

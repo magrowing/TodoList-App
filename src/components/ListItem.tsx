@@ -71,6 +71,13 @@ const Item = styled.li`
       font-size: 1.4rem;
       margin-top: 0.4rem;
     }
+
+    &.isDone {
+      dt {
+        opacity: 0.5;
+        text-decoration: line-through;
+      }
+    }
   }
 `;
 
@@ -83,6 +90,11 @@ function ListItem({ todoItem }: ListItemProps) {
   const onDelete = useTodoStore((state) => state.onDelete);
   const onToggle = useModelStore((state) => state.onToggle);
   const onUpdateTargetId = useTodoStore((state) => state.onUpdateTargetId);
+  const onDone = useTodoStore((state) => state.onDone);
+
+  const handleChangeCheckbox = () => {
+    onDone(id, stats);
+  };
 
   const handleClickDelete = () => {
     onDelete(id);
@@ -98,15 +110,16 @@ function ListItem({ todoItem }: ListItemProps) {
       <div className="checkBox">
         <input
           type="checkbox"
-          id={`checkbox`}
+          id={`checkbox_${id}`}
           checked={!(stats === 'incomplete')}
           readOnly
+          onChange={handleChangeCheckbox}
         />
-        <label htmlFor={`checkbox`}>
+        <label htmlFor={`checkbox_${id}`}>
           <FiCheck />
         </label>
       </div>
-      <dl>
+      <dl className={stats === 'incomplete' ? 'isNone' : 'isDone'}>
         <dt>{title}</dt>
         <dd>{dateTimeFormat(date)}</dd>
       </dl>

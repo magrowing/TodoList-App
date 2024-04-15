@@ -33,4 +33,9 @@ export const useTodoStore = create<TodoState>()((set) => ({
     ? state.todoItems.filter((item) => item.id === targetId)[0].stats 
     : 'incomplete',
   })),
+  onDone : (targetId, stats) => set((state) => ({
+    todoItems : state.todoItems.map((item) => item.id ===  targetId 
+    ? { ...item , stats : stats === 'incomplete' ? 'completed' : 'incomplete' } 
+    : item ),
+  })),
 }))
