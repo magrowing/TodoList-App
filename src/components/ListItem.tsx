@@ -7,6 +7,7 @@ import dateTimeFormat from '../utils/dateTimeFormat';
 import { TodoItemType } from '../types';
 
 import { FiTrash2, FiEdit3, FiCheck } from 'react-icons/fi';
+import { useTodoStore } from '../store/useTodoStore';
 
 const Item = styled.li`
   display: flex;
@@ -76,7 +77,11 @@ type ListItemProps = {
 };
 
 function ListItem({ todoItem }: ListItemProps) {
-  const { title, stats, date } = todoItem;
+  const { id, title, stats, date } = todoItem;
+  const onDelete = useTodoStore((state) => state.onDelete);
+  const handleClickDelete = () => {
+    onDelete(id);
+  };
   return (
     <Item>
       <div className="checkBox">
@@ -95,7 +100,7 @@ function ListItem({ todoItem }: ListItemProps) {
         <dd>{dateTimeFormat(date)}</dd>
       </dl>
       <div>
-        <IconButton>
+        <IconButton onClick={handleClickDelete}>
           <FiTrash2 />
         </IconButton>
         <IconButton>

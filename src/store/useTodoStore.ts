@@ -5,10 +5,10 @@ import { TodoState } from '../types';
 
 export const useTodoStore = create<TodoState>()((set) => ({
   todoItems : [], 
-  onCreate : (item) => set((state) => ({todoItems : [ {
+  onCreate : (todo) => set((state) => ({todoItems : [ {
     id: crypto.randomUUID(),
-    title : item.title,
-    stats : item.stats,
+    title : todo.title,
+    stats : todo.stats,
     date: new Date().getTime(),
   },...state.todoItems ]})),
   onDelete : (targetId) => set((state) => ({todoItems : 
