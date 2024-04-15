@@ -2,12 +2,14 @@ import styled from 'styled-components';
 
 import { IconButton } from './ui/Button';
 
+import { useTodoStore } from '../stores/useTodoStore';
+import { useModelStore } from '../stores/useModalStore';
+
 import dateTimeFormat from '../utils/dateTimeFormat';
 
 import { TodoItemType } from '../types';
 
 import { FiTrash2, FiEdit3, FiCheck } from 'react-icons/fi';
-import { useTodoStore } from '../store/useTodoStore';
 
 const Item = styled.li`
   display: flex;
@@ -79,9 +81,18 @@ type ListItemProps = {
 function ListItem({ todoItem }: ListItemProps) {
   const { id, title, stats, date } = todoItem;
   const onDelete = useTodoStore((state) => state.onDelete);
+  const onToggle = useModelStore((state) => state.onToggle);
+  const onUpdateTargetId = useTodoStore((state) => state.onUpdateTargetId);
+
   const handleClickDelete = () => {
     onDelete(id);
   };
+
+  const handleClickUpdate = () => {
+    onToggle(false);
+    onUpdateTargetId(id);
+  };
+
   return (
     <Item>
       <div className="checkBox">
@@ -103,7 +114,7 @@ function ListItem({ todoItem }: ListItemProps) {
         <IconButton onClick={handleClickDelete}>
           <FiTrash2 />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={handleClickUpdate}>
           <FiEdit3 />
         </IconButton>
       </div>

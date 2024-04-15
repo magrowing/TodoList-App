@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import ListItem from './ListItem';
 
-import { useTodoStore } from '../store/useTodoStore';
+import { useTodoStore } from '../stores/useTodoStore';
 
 const LisContainer = styled.ul`
   padding: 1.5rem;

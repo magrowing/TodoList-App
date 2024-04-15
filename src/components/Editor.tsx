@@ -1,11 +1,12 @@
-import { useState } from 'react';
-
 import styled from 'styled-components';
 
 import Button from './ui/Button';
 import ComboBox from './ui/ComboBox';
 
 import ModalEditor from './ModalEditor';
+
+import { useTodoStore } from '../stores/useTodoStore';
+import { useModelStore } from '../stores/useModalStore';
 
 const Container = styled.section`
   display: flex;
@@ -16,14 +17,18 @@ const Container = styled.section`
 `;
 
 function Editor() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const isOpenModal = useModelStore((state) => state.isOpenModal);
+  const onToggle = useModelStore((state) => state.onToggle);
+  const onUpdateTargetId = useTodoStore((state) => state.onUpdateTargetId);
 
   const handleModalOpen = () => {
-    setIsOpenModal(!isOpenModal);
+    onToggle(isOpenModal);
+    onUpdateTargetId('');
   };
 
   const handleModalClose = () => {
-    setIsOpenModal(false);
+    onToggle(!!isOpenModal);
+    onUpdateTargetId('');
   };
 
   return (

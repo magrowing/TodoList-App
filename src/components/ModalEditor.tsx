@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Button from './ui/Button';
 
-import { useTodoStore } from '../store/useTodoStore';
+import { useTodoStore } from '../stores/useTodoStore';
 
 const ModalContainer = styled.article`
   position: fixed;
@@ -75,10 +75,16 @@ type ModalEditorProps = {
 
 function ModalEditor({ handleModalClose }: ModalEditorProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const title = useTodoStore((state) => state.title);
+  const stats = useTodoStore((state) => state.stats);
+  const isTargetId = useTodoStore((state) => state.isTargetId);
   const onCreate = useTodoStore((state) => state.onCreate);
+  const onUpdate = useTodoStore((state) => state.onUpdate);
+
   const [todo, setTodo] = useState({
-    title: '',
-    stats: 'incomplete',
+    title,
+    stats,
   });
 
   const handleOnChange = (
@@ -93,14 +99,14 @@ function ModalEditor({ handleModalClose }: ModalEditorProps) {
       inputRef.current?.focus();
       return;
     }
-    onCreate(todo);
+    !isTargetId ? onCreate(todo) : onUpdate(isTargetId, todo);
     handleModalClose();
   };
 
   return (
     <ModalContainer>
       <div className="container">
-        <h3 className="title">Add TODO</h3>
+        <h3 className="title">{!isTargetId ? `Add` : `Update`} TODO</h3>
         <div className="form">
           <label htmlFor="title">title</label>
           <input
@@ -126,7 +132,7 @@ function ModalEditor({ handleModalClose }: ModalEditorProps) {
         </div>
         <div className="btn">
           <Button className="primary" onClick={handleOnSubmit}>
-            Add Task
+            {!isTargetId ? `Add` : `Update`} Task
           </Button>
           <Button onClick={handleModalClose}>Cancel</Button>
         </div>
