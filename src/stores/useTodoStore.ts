@@ -1,30 +1,54 @@
 import { create } from 'zustand';
 
-import { TodoState } from '../types';
+import { TodoItemType, TodoState } from '../types';
 
 
-export const useTodoStore = create<TodoState>()((set) => ({
+const getInitialTodoItems = () => {
+  const localTodoItems = localStorage.getItem('todoItems'); 
+
+  if(localTodoItems){
+    return JSON.parse(localTodoItems)
+  }
+
+  window.localStorage.setItem('todoItems', JSON.stringify([])); 
+  return []; 
+}
+
+const setLocalStorage = (todoList : TodoItemType[]) => {
+  localStorage.setItem('todoItems', JSON.stringify(todoList));
+}
+
+export const useTodoStore = create<TodoState>()((set,get) => ({
   title: '',
   stats: 'incomplete',
   isTargetId : '',
-  todoItems : [], 
-  onCreate : (todo) => set((state) => ({todoItems : [ {
-    id: crypto.randomUUID(),
-    title : todo.title,
-    stats : todo.stats,
-    date: new Date().getTime(),
-  },...state.todoItems ]})),
-  onDelete : (targetId) => set((state) => ({todoItems : 
+  todoItems : getInitialTodoItems(),
+  onCreate : (todo) => {
+    set((state) => ({ todoItems : [ {
+      id: crypto.randomUUID(),
+      title : todo.title,
+      stats : todo.stats,
+      date: new Date().getTime(),
+    },...state.todoItems ]}
+    )); 
+    setLocalStorage(get().todoItems);
+  },
+  onDelete : (targetId) => {
+    set((state) => ({todoItems : 
     state.todoItems.filter((item) => item.id !== targetId )}
-  )),
-  onUpdate : (targetId,todo) => set((state) => (
-    {
+    ));
+    setLocalStorage(get().todoItems);
+  },
+  onUpdate : (targetId,todo) => {
+    set((state) => ({
       todoItems : state.todoItems.map((item) => item.id ===  targetId 
       ? { ...item , title : todo.title , stats : todo.stats } 
       : item ),
-    }
-  )),
-  onUpdateTargetId : (targetId) => set((state) => ({
+    })); 
+    setLocalStorage(get().todoItems);
+  },
+  onUpdateTargetId : (targetId) => {
+    set((state) => ({
     isTargetId  : targetId,
     title : targetId !== '' 
     ? state.todoItems.filter((item) => item.id === targetId)[0].title 
@@ -32,14 +56,22 @@ export const useTodoStore = create<TodoState>()((set) => ({
     stats : targetId !== '' 
     ? state.todoItems.filter((item) => item.id === targetId)[0].stats 
     : 'incomplete',
-  })),
-  onDone : (targetId, stats) => set((state) => ({
+    }));
+    setLocalStorage(get().todoItems);
+  },
+  onDone : (targetId, stats) => {
+    set((state) => ({
     todoItems : state.todoItems.map((item) => item.id ===  targetId 
     ? { ...item , stats : stats === 'incomplete' ? 'completed' : 'incomplete' } 
     : item ),
-  })),
-
-  onFilterChange : (target) => set((state) => ({
-    todoItems : state.todoItems.filter((item) => item.stats === target)
-  }) )
+    })); 
+    setLocalStorage(get().todoItems);
+  },
+  onFilterChange : (target) => {
+    const localTodoItems = localStorage.getItem('todoItems');
+    const getTodoItems : TodoItemType[] = localTodoItems && JSON.parse(localTodoItems)
+    set(() => ({
+      todoItems : target == 'all' ? getTodoItems : getTodoItems.filter((item) => item.stats === target)
+    }))
+  },
 }))
