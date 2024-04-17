@@ -2,15 +2,14 @@ import { create } from 'zustand';
 
 import { TodoItemType, TodoState } from '../types';
 
-
 const getInitialTodoItems = () => {
   const localTodoItems = localStorage.getItem('todoItems'); 
 
   if(localTodoItems){
-    return JSON.parse(localTodoItems)
+    return JSON.parse(localTodoItems);
   }
 
-  window.localStorage.setItem('todoItems', JSON.stringify([])); 
+  localStorage.setItem('todoItems', JSON.stringify([])); 
   return []; 
 }
 
@@ -48,14 +47,11 @@ export const useTodoStore = create<TodoState>()((set,get) => ({
     setLocalStorage(get().todoItems);
   },
   onUpdateTargetId : (targetId) => {
-    set((state) => ({
+    const match = get().todoItems.filter((item) => item.id === targetId)[0];
+    set(() => ({
     isTargetId  : targetId,
-    title : targetId !== '' 
-    ? state.todoItems.filter((item) => item.id === targetId)[0].title 
-    : '',
-    stats : targetId !== '' 
-    ? state.todoItems.filter((item) => item.id === targetId)[0].stats 
-    : 'incomplete',
+    title : targetId !== '' ? match.title : '',
+    stats : targetId !== '' ? match.stats : 'incomplete',
     }));
     setLocalStorage(get().todoItems);
   },
