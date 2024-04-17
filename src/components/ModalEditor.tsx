@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react';
 
+import { useShallow } from 'zustand/react/shallow';
+
 import styled from 'styled-components';
 
 import Button from './ui/Button';
@@ -76,11 +78,15 @@ type ModalEditorProps = {
 function ModalEditor({ handleModalClose }: ModalEditorProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const title = useTodoStore((state) => state.title);
-  const stats = useTodoStore((state) => state.stats);
-  const isTargetId = useTodoStore((state) => state.isTargetId);
-  const onCreate = useTodoStore((state) => state.onCreate);
-  const onUpdate = useTodoStore((state) => state.onUpdate);
+  const { title, stats, isTargetId, onCreate, onUpdate } = useTodoStore(
+    useShallow((state) => ({
+      title: state.title,
+      stats: state.stats,
+      isTargetId: state.isTargetId,
+      onCreate: state.onCreate,
+      onUpdate: state.onUpdate,
+    }))
+  );
 
   const [todo, setTodo] = useState({
     title,
