@@ -69,6 +69,41 @@ const Switch = styled.button<SwitchProps>`
         }
       }
     `}
+
+  @media screen and (max-width: 480px) {
+    position: fixed;
+    top: unset;
+    right: 2rem;
+    bottom: 2rem;
+    width: 6rem;
+    height: 6rem;
+    transform: translateY(0%);
+    z-index: 10;
+
+    span {
+      width: 4rem;
+      height: 4rem;
+      &:first-of-type {
+        display: none;
+      }
+      &:last-of-type {
+        display: inline-flex;
+      }
+    }
+
+    ${(props) =>
+      props.active === 'light' &&
+      css`
+        span {
+          &:first-of-type {
+            display: inline-flex;
+          }
+          &:last-of-type {
+            display: none;
+          }
+        }
+      `}
+  }
 `;
 
 function SwitchButton() {

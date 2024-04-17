@@ -12,7 +12,17 @@ const Container = styled.section`
   display: flex;
   align-items: center;
   .lookup-area {
+    position: relative;
     margin-left: auto;
+    &::after {
+      position: absolute;
+      bottom: 2rem;
+      right: 1rem;
+      transform: translateY(50%);
+      content: '▾';
+      color: ${(props) => props.theme.colors.textPrimary};
+      z-index: 10;
+    }
   }
 `;
 

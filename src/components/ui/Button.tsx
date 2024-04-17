@@ -9,7 +9,7 @@ const Button = styled.button.attrs<ButtonProps>((props) => {
   return { type: props.type ?? 'button' };
 })`
   display: inline-block;
-  min-width: 10rem;
+  min-width: 12rem;
   height: 4rem;
   border: none;
   border-radius: 0.6rem;

@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    min-width: 32rem;
     font-size: 1.6rem;
     font-family: "Pretendard Variable", Pretendard,  sans-serif;
     color: ${(props) => props.theme.colors.baseBlack};

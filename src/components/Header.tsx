@@ -13,6 +13,11 @@ const HeaderContainer = styled.header`
     text-align: center;
     margin: 3rem auto;
     color: ${(props) => props.theme.colors.textPrimary};
+
+    @media screen and (max-width: 480px) {
+      font-size: 3.2rem;
+      margin: 2rem auto 3rem;
+    }
   }
 `;
 

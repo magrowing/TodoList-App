@@ -79,6 +79,29 @@ const Item = styled.li`
       }
     }
   }
+
+  @media screen and (max-width: 480px) {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    .checkBox {
+      /* margin-right: 0;
+      margin-left: 2rem; */
+    }
+    .btn {
+      width: 100%;
+      margin-top: 2rem;
+      text-align: right;
+    }
+    dl {
+      word-break: break-all;
+
+      dd {
+        margin-top: 1rem;
+      }
+    }
+  }
 `;
 
 type ListItemProps = {
@@ -87,8 +110,9 @@ type ListItemProps = {
 
 function ListItem({ todoItem }: ListItemProps) {
   const { id, title, stats, date } = todoItem;
-  const onDelete = useTodoStore((state) => state.onDelete);
   const onToggle = useModelStore((state) => state.onToggle);
+
+  const onDelete = useTodoStore((state) => state.onDelete);
   const onUpdateTargetId = useTodoStore((state) => state.onUpdateTargetId);
   const onDone = useTodoStore((state) => state.onDone);
 
@@ -123,12 +147,12 @@ function ListItem({ todoItem }: ListItemProps) {
         <dt>{title}</dt>
         <dd>{dateTimeFormat(date)}</dd>
       </dl>
-      <div>
-        <IconButton onClick={handleClickDelete}>
-          <FiTrash2 />
-        </IconButton>
+      <div className="btn">
         <IconButton onClick={handleClickUpdate}>
           <FiEdit3 />
+        </IconButton>
+        <IconButton onClick={handleClickDelete}>
+          <FiTrash2 />
         </IconButton>
       </div>
     </Item>

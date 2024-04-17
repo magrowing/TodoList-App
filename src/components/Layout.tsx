@@ -5,10 +5,14 @@ import Editor from './Editor';
 import List from './List';
 
 const Container = styled.article`
-  width: 90%;
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  height: 400px;
+
+  @media screen and (max-width: 900px) {
+    max-width: 100%;
+    width: 90%;
+  }
 `;
 
 function Layout() {

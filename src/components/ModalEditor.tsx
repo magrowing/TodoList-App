@@ -42,6 +42,7 @@ const ModalContainer = styled.article`
     color: ${(props) => props.theme.colors.textSecondary};
   }
   .form {
+    position: relative;
     width: 100%;
     margin-bottom: 2rem;
     label {
@@ -57,11 +58,28 @@ const ModalContainer = styled.article`
     select {
       display: block;
       width: 100%;
-      background-color: ${(props) => props.theme.colors.baseWhite};
+      background-color: ${(props) => props.theme.colors.bgPrimary};
       border: none;
       padding: 1.6rem;
       font-size: 1.6rem;
-      color: ${(props) => props.theme.colors.baseBlack};
+      color: ${(props) => props.theme.colors.textPrimary};
+      border-radius: 0.5rem;
+    }
+
+    &__select {
+      select {
+        -webkit-appearance: none;
+      }
+      &::after {
+        position: absolute;
+        bottom: 2.6rem;
+        right: 2rem;
+        content: '▾';
+        width: 1rem;
+        height: 1rem;
+        color: ${(props) => props.theme.colors.textPrimary};
+        z-index: 10;
+      }
     }
   }
   .btn {
@@ -124,7 +142,7 @@ function ModalEditor({ handleModalClose }: ModalEditorProps) {
             onChange={handleOnChange}
           />
         </div>
-        <div className="form">
+        <div className="form form__select">
           <label htmlFor="stats">stats</label>
           <select
             name="stats"
