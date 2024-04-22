@@ -28,10 +28,10 @@ function List() {
 
   useEffect(() => {
     const localTodoItems = localStorage.getItem('todoItems');
-    if (localTodoItems) {
-      setLocalStorageTodos(JSON.parse(localTodoItems));
+    if (!localTodoItems) {
+      setLocalStorageTodos([]);
     }
-    setLocalStorageTodos([]);
+    setLocalStorageTodos(JSON.parse(localTodoItems ?? ''));
   }, [todoItems]);
 
   if (!localStorageTodos.length) {
