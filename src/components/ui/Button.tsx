@@ -43,4 +43,11 @@ export const IconButton = styled(Button)`
     height: 2rem;
     stroke: ${(props) => props.theme.colors.textPrimary};
   }
+
+  @media screen and (max-width: 480px) {
+    svg {
+      width: 2.6rem;
+      height: 2.6rem;
+    }
+  }
 `;
